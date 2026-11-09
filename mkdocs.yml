@@ -11,3 +11,4 @@ nav:
   - Security: security.md
   - Self-hosting: deployment.md
   - Verify releases: verify.md
+  - Contribute: contributing.md

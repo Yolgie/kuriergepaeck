@@ -16,7 +16,7 @@ Start with [Architecture](architecture.md), [Security](security.md), [Deployment
 5. Copy the credential in the browser; expire the session.
 
 ## Participate
-We welcome issues, threat-model reviews, tests, documentation improvements and contributions. See [Contributing](../CONTRIBUTING.md) and [GitHub](https://github.com/Yolgie/kuriergepaeck).
+We welcome issues, threat-model reviews, tests, documentation improvements and contributions. See [Contributing](contributing.md) and [GitHub](https://github.com/Yolgie/kuriergepaeck).
 
 ## Roadmap
 - First: KeePass2Android plugin, web receiver, minimal relay
