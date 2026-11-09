@@ -1,0 +1,22 @@
+# build artifacts
+build/
+dist/
+target/
+.gradle/
+**/build/
+node_modules/
+coverage/
+.playwright/
+playwright-report/
+test-results/
+.venv/
+__pycache__/
+.DS_Store
+.env
+.env.*
+!.env.example
+*.apk
+*.aab
+*.keystore
+*.jks
+*.kdbx
