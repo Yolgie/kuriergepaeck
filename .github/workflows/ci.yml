@@ -1,0 +1,24 @@
+name: Repository checks
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  hygiene:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check required foundation documents
+        run: |
+          set -eu
+          for file in AGENTS.md README.md CONTRIBUTING.md SECURITY.md LICENSE docs/security.md docs/architecture.md protocol/README.md; do
+            test -s "$file" || { echo "Missing or empty $file"; exit 1; }
+          done
+      - name: Reject obvious committed secrets
+        run: |
+          if git ls-files | grep -Ei '(\.kdbx$|\.keystore$|\.jks$|(^|/)\.env$)'; then
+            echo 'Secret-like file committed'; exit 1
+          fi

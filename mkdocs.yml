@@ -1,0 +1,13 @@
+site_name: Kuriergepäck
+site_url: https://yolgie.github.io/kuriergepaeck/
+repo_url: https://github.com/Yolgie/kuriergepaeck
+repo_name: Yolgie/kuriergepaeck
+docs_dir: docs
+theme:
+  name: mkdocs
+nav:
+  - Home: index.md
+  - Architecture: architecture.md
+  - Security: security.md
+  - Self-hosting: deployment.md
+  - Verify releases: verify.md
