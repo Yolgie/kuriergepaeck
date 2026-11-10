@@ -14,4 +14,4 @@ Kuriergepäck is a security-sensitive, provider-neutral credential handoff platf
 - Tests and documentation must accompany behavior changes.
 
 ## Development workflow
-Read docs/architecture.md, docs/security.md, protocol/README.md and CONTRIBUTING.md before changes. Prefer small reviewable PRs. Never commit real credentials, APK signing keys or production secrets. Security fixes need a SECURITY.md disclosure path.
+Read docs/architecture.md, docs/security.md, protocol/README.md and CONTRIBUTING.md before changes. **Keep each future PR small and limited to one topic**: protocol, a component, documentation or automation. Split unrelated changes into sequential PRs. Never commit real credentials, APK signing keys or production secrets. Security fixes need a SECURITY.md disclosure path.
