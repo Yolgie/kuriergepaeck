@@ -40,6 +40,8 @@ Sometimes you need a credential on a computer where you cannot or do not want to
 
 Read the [project overview](docs/index.md), [architecture](docs/architecture.md), [security threat model](docs/security.md), [deployment plan](docs/deployment.md), and [verification plan](docs/verify.md). Documentation builds with MkDocs and deploys directly via GitHub Pages Actions, without a publishing branch (after Pages is configured).
 
+See the [living roadmap](docs/roadmap.md) for milestones and ideas, including features that don't have issues yet.
+
 ## Help build it
 
 PRs, bug reports, protocol/security reviews and documentation improvements welcome. See [CONTRIBUTING.md](CONTRIBUTING.md), [SECURITY.md](SECURITY.md) and [issues](https://github.com/Yolgie/kuriergepaeck/issues).

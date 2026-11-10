@@ -8,6 +8,7 @@ theme:
 nav:
   - Home: index.md
   - Architecture: architecture.md
+  - Roadmap: roadmap.md
   - Security: security.md
   - Self-hosting: deployment.md
   - Verify releases: verify.md
