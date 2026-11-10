@@ -1,15 +1,21 @@
-# Credential handoff protocol — design placeholder
+# Credential handoff protocol
 
-The protocol must be source-agnostic and receiver-agnostic. This directory will contain a normative wire format and machine-readable cross-platform test vectors.
+**KGP/1, proposal revision 1 — unreviewed, not a release. Synthetic credentials only.**
+Tracks [design review #6](https://github.com/Yolgie/kuriergepaeck/issues/6).
+MUST, MUST NOT and SHOULD describe proposed conformance requirements, not existing behavior.
 
-## Draft state machine
-1. Browser creates an ephemeral keypair and initializes a session.
-2. Browser displays QR material binding relay origin, session ID, nonce, protocol version and **browser-generated public key**.
-3. Source scans QR, checks identity/context and obtains explicit per-credential approval.
-4. Source encrypts a single bounded credential envelope and sends ciphertext through relay.
-5. Browser authenticates/decrypts once and closes session.
+- [Specification](v1.md): trust, byte formats, handshake, lifecycle and compatibility.
+- [Research and decisions](research.md): primary sources, alternatives, library candidates and review blockers.
+- [Conformance](conformance.md): positive and negative fixtures, implementation and review gates.
+- [Fixtures](vectors/): synthetic framing/lifecycle cases and an upstream RFC 9180 primitive vector.
 
-Do not implement encryption from this sketch: key derivation, transcript binding, malicious-relay behavior, algorithms, encoding and replay protection must first be specified and reviewed.
+This is a provider-neutral protocol: no wire field identifies a vault, password manager,
+Android API, or provider entry ID. A source adapter selects exactly one local entry;
+the trusted source UI approves its exact outgoing fields. Additional managers,
+watches and touchscreen devices implement the same source or receiver role. A device
+without a camera/display needs a separately reviewed authenticated pairing method;
+v1 does not replace QR authentication with a relay lookup or short numeric code.
 
-## Compatibility
-Wire protocol versions are separate from application versions. All released versions must have positive and negative conformance vectors. Relay must reject unknown incompatible protocol versions safely.
+Do not implement production cryptography from this proposal. HPKE is established;
+this application composition is new and requires independent review. Full KGP/1
+cryptographic transcripts and Android/browser interoperability remain release gates.

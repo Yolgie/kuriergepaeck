@@ -22,3 +22,19 @@ Define a stable credential-selection interface on source devices; the wire proto
 - Session expiration, replay defense, metadata exposure, and limits
 - Whether relay serves receiver assets in convenience mode only
 - Supported Android plugin SDK versions and packaging/distribution channels
+
+## Proposed v1 protocol boundary
+
+The review proposal lives in `protocol/`: a QR-authenticated ephemeral receiver
+key and random pairing secret, HPKE PSK setup, bidirectional key confirmation and
+one explicitly approved `login/1` envelope. HTTP routing capabilities are distinct
+from end-to-end secrets. No persistent pairing or vault lookup API is introduced.
+The proposal defines exact byte formats, state machines and independent endpoint
+expiry; no relay or client implementation is present.
+
+Prefer a receiver distributed independently of the relay's code/control plane.
+Combined hosting remains a materially weaker convenience choice: the operator is
+trusted to deliver honest JavaScript. Merely serving two hostnames under the same
+compromised administrative pipeline does not establish independent trust.
+The original open decisions remain subject to review; the proposal does not close
+the security or production-readiness gates.

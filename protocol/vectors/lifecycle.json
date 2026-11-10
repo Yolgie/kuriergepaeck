@@ -1,0 +1,158 @@
+[
+  {
+    "id": "P1",
+    "initial": "IDLE",
+    "stimulus": "valid QR, hello, ready, approve, credential, receipt",
+    "expected": "S COMPLETE; R DISPLAY; exactly one consume"
+  },
+  {
+    "id": "P2",
+    "initial": "WAIT_CREDENTIAL",
+    "stimulus": "identical credential frame delivered twice",
+    "expected": "one consume; identical cached receipt; no second reveal"
+  },
+  {
+    "id": "P3",
+    "initial": "WAIT_APPROVAL",
+    "stimulus": "S cancel at unused seq1",
+    "expected": "S CANCELLED; R CANCELLED; zero credentials"
+  },
+  {
+    "id": "P4",
+    "initial": "WAIT_RECEIPT",
+    "stimulus": "receipt dropped; identical credential retransmission then receipt",
+    "expected": "S COMPLETE; one R consume"
+  },
+  {
+    "id": "N1",
+    "initial": "WAIT_HELLO",
+    "stimulus": "flip one bit of pkR in QR at source only",
+    "expected": "hello authentication fails; no plaintext"
+  },
+  {
+    "id": "N2",
+    "initial": "WAIT_HELLO",
+    "stimulus": "flip one bit of QR PSK at source only",
+    "expected": "hello authentication fails"
+  },
+  {
+    "id": "N3",
+    "initial": "WAIT_CREDENTIAL",
+    "stimulus": "inject valid credential from another sid/context",
+    "expected": "reject; no consume"
+  },
+  {
+    "id": "N4",
+    "initial": "WAIT_CREDENTIAL",
+    "stimulus": "flip any ciphertext, tag, kind or sequence bit",
+    "expected": "reject; no consume"
+  },
+  {
+    "id": "N5",
+    "initial": "WAIT_READY",
+    "stimulus": "substitute enc or send ready from another transcript",
+    "expected": "reject; no approval"
+  },
+  {
+    "id": "N6",
+    "initial": "WAIT_CREDENTIAL",
+    "stimulus": "valid credential arrives at R elapsed=120000 ms",
+    "expected": "EXPIRED; zero consumes"
+  },
+  {
+    "id": "N7",
+    "initial": "WAIT_APPROVAL",
+    "stimulus": "source approval races local cancel; cancel wins atomic transition",
+    "expected": "CANCELLED; no credential sent"
+  },
+  {
+    "id": "N8",
+    "initial": "WAIT_RECEIPT",
+    "stimulus": "source local cancel after send commitment",
+    "expected": "DELIVERY_UNKNOWN; no revocation claim"
+  },
+  {
+    "id": "N9",
+    "initial": "DISPLAY",
+    "stimulus": "new ciphertext for used credential slot",
+    "expected": "terminate; no second consume"
+  },
+  {
+    "id": "N10",
+    "initial": "IDLE",
+    "stimulus": "URI version=2 but B version=1",
+    "expected": "reject before network"
+  },
+  {
+    "id": "N11",
+    "initial": "IDLE",
+    "stimulus": "QR p is padded base64url or has trailing decoded byte",
+    "expected": "reject before network"
+  },
+  {
+    "id": "N12",
+    "initial": "WAIT_CREDENTIAL",
+    "stimulus": "authenticated JSON has duplicate password member",
+    "expected": "FAILED; no display; no accepted receipt"
+  },
+  {
+    "id": "N13",
+    "initial": "WAIT_CREDENTIAL",
+    "stimulus": "authenticated JSON >16384 bytes, invalid UTF-8 or unknown member",
+    "expected": "FAILED; no display"
+  },
+  {
+    "id": "N14",
+    "initial": "IDLE",
+    "stimulus": "clock now=created-31 or now=expires",
+    "expected": "reject QR before join"
+  },
+  {
+    "id": "N15",
+    "initial": "WAIT_CREDENTIAL",
+    "stimulus": "resume after suspension with unreliable elapsed clock",
+    "expected": "EXPIRED; do not decrypt/display"
+  },
+  {
+    "id": "N16",
+    "initial": "IDLE",
+    "stimulus": "origin is https://user@relay.example/path or unallowlisted host",
+    "expected": "reject before network"
+  },
+  {
+    "id": "N17",
+    "initial": "WAIT_HELLO",
+    "stimulus": "enc has compressed, infinity or off-curve point",
+    "expected": "reject via key validation"
+  },
+  {
+    "id": "N18",
+    "initial": "WAIT_CREDENTIAL",
+    "stimulus": "relay reports TTL extension; valid credential after local deadline",
+    "expected": "EXPIRED"
+  },
+  {
+    "id": "N19",
+    "initial": "IDLE",
+    "stimulus": "restart/reload then replay old frames",
+    "expected": "no restored keys/session; reject"
+  },
+  {
+    "id": "N20",
+    "initial": "WAIT_APPROVAL",
+    "stimulus": "change selected credential after approval",
+    "expected": "invalidate approval; no send until explicit new approval"
+  },
+  {
+    "id": "N21",
+    "initial": "IDLE",
+    "stimulus": "relay offers replacement sid or public key",
+    "expected": "ignore/reject; generate new session after collision"
+  },
+  {
+    "id": "N22",
+    "initial": "WAIT_RECEIPT",
+    "stimulus": "relay returns HTTP success without peer receipt",
+    "expected": "remain WAIT_RECEIPT until deadline then DELIVERY_UNKNOWN"
+  }
+]
