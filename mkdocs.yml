@@ -10,6 +10,8 @@ nav:
   - Architecture: architecture.md
   - Roadmap: roadmap.md
   - Security: security.md
+  - Research:
+      - QR pairing, HPKE and PAKE: research/pairing-protocols.md
   - Self-hosting: deployment.md
   - Verify releases: verify.md
   - Contribute: contributing.md
