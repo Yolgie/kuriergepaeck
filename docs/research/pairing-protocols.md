@@ -62,6 +62,17 @@ Costs and limitations:
 
 **Is the QR allowed to carry a Wormhole code?** Yes: a Magic Wormhole code includes the nameplate and secret words, and an implementation can be configured to use a self-hosted mailbox server. The normal short, human-typed code has only modest entropy because SPAKE2 limits an active attacker to online guesses; a QR permits longer random codes. Both clients still must speak the full compatible Wormhole protocol, not merely submit the code to an arbitrary relay.
 
+## A third possibility: HPKE PSK mode without PAKE
+
+If the QR includes a fresh, high-entropy **secret** in addition to the public key, [RFC 9180 §5.1.2](https://www.rfc-editor.org/rfc/rfc9180.html#section-5.1.2) already specifies **HPKE PSK mode**. This lets the browser verify that a ciphertext sender possessed the QR-derived secret, while **still requiring the receiver's private key** for decryption. It is not a human-memorable PAKE and does **not** offer a secure manual-code fallback: RFC 9180 requires at least 32 bytes of PSK entropy.
+
+This is a plausible middle option if we need *capability possession* (not lasting identity) but do not need a bidirectional authenticated channel:
+- **Pros:** uses a standardized HPKE authenticated mode; no interactive PAKE handshake, and preserves one-way recipient-only payload decryption.
+- **Cons:** the QR secret is readable by anyone who captures the QR; a dishonest receiver page can publish its own key and secret; no replay or browser-code protection. Interoperability matters: **do not assume** Tink's `HybridEncrypt` API supports RFC 9180 PSK mode just because it supports HPKE base-mode encryption.
+- **Test gate:** confirm both Android and browser libraries implement the same PSK mode, key formats and authenticated context. Otherwise prefer a simpler and reviewable mechanism, not a custom reimplementation.
+
+A **short human-readable code** is different: use an established PAKE such as SPAKE2 to resist offline guessing, rather than passing a weak code as an HPKE PSK.
+
 ## Reusing Magic Wormhole versus WebWormhole
 
 ### Magic Wormhole
